@@ -5,19 +5,32 @@ const initialItems = [
   {
     text: "this is task 1",
     id: 1,
+    packed: true,
   },
   {
     text: "this is task 2",
     id: 2,
+    packed: false,
   },
 ];
 
 function TodoComp() {
   const [description, setDescription] = useState("");
+  // const [pack , setPacked] = useState(false);
   const [items, setItems] = useState(initialItems);
 
   function handleAddItems(item) {
     setItems(() => [...items, item]);
+  }
+
+  function handleDeleteItem(id) {
+    setItems(() => items.filter((item) => item.id !== id));
+  }
+
+  function handlePackedItem(id) {
+    setItems(() =>
+      items.map((item) => (item.id === id ? !item.packed : item.packed))
+    );
   }
 
   function handleOnSubmit(e) {
@@ -26,6 +39,7 @@ function TodoComp() {
     const item = {
       id,
       text: description,
+      packed: false,
     };
     handleAddItems(item);
     setDescription("");
@@ -63,7 +77,12 @@ function TodoComp() {
       <div className="pb-10 px-12 py-6">
         <ul className="pl-6 space-y-3">
           {items.map((el) => (
-            <Item key={el.id} item={el} />
+            <Item
+              key={el.id}
+              item={el}
+              onDeleteItems={handleDeleteItem}
+              onChangePack={handlePackedItem}
+            />
           ))}
         </ul>
       </div>
