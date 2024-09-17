@@ -24,12 +24,14 @@ function TodoComp() {
   }
 
   function handleDeleteItem(id) {
-    setItems(() => items.filter((item) => item.id !== id));
+    setItems((items) => items.filter((item) => item.id !== id));
   }
 
   function handlePackedItem(id) {
-    setItems(() =>
-      items.map((item) => (item.id === id ? !item.packed : item.packed))
+    setItems((items) =>
+      items.map((item) =>
+        item.id === id ? { ...item, packed: !item.packed } : item
+      )
     );
   }
 
