@@ -16,7 +16,6 @@ const initialItems = [
 
 function TodoComp() {
   const [description, setDescription] = useState("");
-  // const [pack , setPacked] = useState(false);
   const [items, setItems] = useState(initialItems);
 
   function handleAddItems(item) {
