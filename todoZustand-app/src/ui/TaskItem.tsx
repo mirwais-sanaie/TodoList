@@ -1,13 +1,5 @@
-type TaskItemProps = {
-  id: number;
-  title: string;
-  dueDate: string;
-  priority: string;
-  completed: boolean;
-  onToggle?: (id: number) => void;
-  onEdit?: (id: number) => void;
-  onDelete?: (id: number) => void;
-};
+import useStore from "../store/store";
+import type { TodoItem as TaskItemProps } from "../store/store";
 
 function TaskItem({
   id,
@@ -32,6 +24,18 @@ function TaskItem({
     }
   };
 
+  const { deleteTask, makeCompleted } = useStore();
+
+  function handleDelete(id: number) {
+    if (!id) return;
+    deleteTask(id);
+  }
+  function handleToggle(id: number) {
+    if (!id) return;
+
+    makeCompleted(id);
+  }
+
   return (
     <div
       className={`flex items-center gap-4 p-4 rounded-xl transition-colors duration-200 group ${
@@ -43,7 +47,10 @@ function TaskItem({
       <input
         type="checkbox"
         checked={completed}
-        onChange={() => onToggle?.(id)}
+        onChange={() => {
+          handleToggle(id);
+          onToggle?.(id);
+        }}
         className={`w-5 h-5 rounded border-2 ${
           completed ? "border-primary-500 bg-primary-500" : "border-slate-300"
         }`}
@@ -75,7 +82,10 @@ function TaskItem({
           <span className="material-symbols-outlined text-slate-600">edit</span>
         </button>
         <button
-          onClick={() => onDelete?.(id)}
+          onClick={() => {
+            handleDelete(id);
+            onDelete?.(id);
+          }}
           className="p-2 hover:bg-red-100 text-red-500 rounded-lg transition-colors duration-200"
         >
           <span className="material-symbols-outlined">delete</span>

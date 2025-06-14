@@ -11,7 +11,6 @@ function CreateNote() {
       alert("Please fill in both fields.");
       return;
     }
-    console.log(title, priority);
     setTask({
       title,
       priority,

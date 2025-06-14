@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type TodoItem = {
+export type TodoItem = {
   id: number;
   title: string;
   dueDate: string;
@@ -16,6 +16,9 @@ type StoreState = {
   increment: () => void;
   todoItems: TodoItem[];
   setTask: (data: TodoItem) => void;
+  deleteTask: (id: number) => void;
+  makeCompleted: (id: number) => void;
+  //   editTask: (id: number, updatedData: Partial<TodoItem>) => void;
 };
 
 const useStore = create<StoreState>((set) => ({
@@ -32,6 +35,16 @@ const useStore = create<StoreState>((set) => ({
   ],
   setTask: (data: TodoItem) =>
     set((state) => ({ todoItems: [...state.todoItems, data] })),
+  deleteTask: (id: number) =>
+    set((state) => ({
+      todoItems: state.todoItems.filter((task) => task.id !== id),
+    })),
+  makeCompleted: (id: number) =>
+    set((state) => ({
+      todoItems: state.todoItems.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      ),
+    })),
 }));
 
 export default useStore;
