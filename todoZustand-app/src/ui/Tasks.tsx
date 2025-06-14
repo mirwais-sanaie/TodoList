@@ -1,44 +1,46 @@
+import useStore from "../store/store";
 import TaskItem from "./TaskItem";
 
-const tasks = [
-  {
-    id: 1,
-    title: "Complete project documentation",
-    dueDate: "Today",
-    priority: "High",
-    completed: false,
-  },
-  {
-    id: 2,
-    title: "Review team performance",
-    dueDate: "Tomorrow",
-    priority: "Medium",
-    completed: false,
-  },
-  {
-    id: 3,
-    title: "Update website design",
-    dueDate: "Yesterday",
-    priority: "Low",
-    completed: true,
-  },
-  {
-    id: 4,
-    title: "Plan marketing strategy",
-    dueDate: "Next week",
-    priority: "Medium",
-    completed: false,
-  },
-  {
-    id: 5,
-    title: "Client meeting preparation",
-    dueDate: "Friday",
-    priority: "High",
-    completed: false,
-  },
-];
+// const tasks = [
+//   {
+//     id: 1,
+//     title: "Complete project documentation",
+//     dueDate: "Today",
+//     priority: "High",
+//     completed: false,
+//   },
+//   {
+//     id: 2,
+//     title: "Review team performance",
+//     dueDate: "Tomorrow",
+//     priority: "Medium",
+//     completed: false,
+//   },
+//   {
+//     id: 3,
+//     title: "Update website design",
+//     dueDate: "Yesterday",
+//     priority: "Low",
+//     completed: true,
+//   },
+//   {
+//     id: 4,
+//     title: "Plan marketing strategy",
+//     dueDate: "Next week",
+//     priority: "Medium",
+//     completed: false,
+//   },
+//   {
+//     id: 5,
+//     title: "Client meeting preparation",
+//     dueDate: "Friday",
+//     priority: "High",
+//     completed: false,
+//   },
+// ];
 
 function Tasks() {
+  const { todoItems } = useStore();
   return (
     <div className="lg:col-span-2">
       <div className="bg-white rounded-2xl shadow-lg p-6">
@@ -50,7 +52,7 @@ function Tasks() {
         </div>
 
         <div className="space-y-3">
-          {tasks.map((task) => (
+          {todoItems.map((task) => (
             <TaskItem
               key={task.id}
               id={task.id}
