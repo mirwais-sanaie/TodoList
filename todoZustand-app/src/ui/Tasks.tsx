@@ -47,7 +47,7 @@ function Tasks() {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold text-slate-800">Tasks</h2>
           <span className="bg-slate-100 px-3 py-1 rounded-full text-sm text-slate-600">
-            8 tasks
+            {todoItems.length} tasks
           </span>
         </div>
 

@@ -18,7 +18,7 @@ type StoreState = {
   setTask: (data: TodoItem) => void;
   deleteTask: (id: number) => void;
   makeCompleted: (id: number) => void;
-  //   editTask: (id: number, updatedData: Partial<TodoItem>) => void;
+  editTask: (id: number, updatedData: Partial<TodoItem>) => void;
 };
 
 const useStore = create<StoreState>((set) => ({
@@ -44,6 +44,17 @@ const useStore = create<StoreState>((set) => ({
       todoItems: state.todoItems.map((task) =>
         task.id === id ? { ...task, completed: !task.completed } : task
       ),
+    })),
+
+  editTask: (id: number, updatedData: Partial<TodoItem>) =>
+    set((state) => ({
+      todoItems: state.todoItems.map((task) => {
+        if (task.id === id) {
+          return { ...task, ...updatedData };
+        } else {
+          return task;
+        }
+      }),
     })),
 }));
 
